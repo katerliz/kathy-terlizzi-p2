@@ -1,0 +1,38 @@
+.listItemFormat{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.postListItem {
+    padding: 3px 7px;
+
+    border: solid 1px transparent;
+}
+
+.postListItem:hover{
+    background-color: #8fea70;
+    border-color: #aaaaaa;
+    border-radius: 25px;
+
+    cursor: pointer;
+}
+
+.postListItem p{
+    max-width: 500px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+
+.postControls {
+    margin: 10px 0 10px 30%;
+}
+
+.postControls button {
+    margin-left: 10px;
+}
+
+#blue{
+    background-color: #70a9ea;
+}

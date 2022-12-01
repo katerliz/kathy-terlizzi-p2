@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState} from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route, Link, withRouter } from 'react-router-dom';
@@ -11,7 +11,7 @@ import CreatePost from './components/Post/CreatePost';
 import EditPost from './components/Post/EditPost';
 import PostListItem from './components/PostList/PostListItem';
 import CreateListItem from './components/ListItem/CreateListItem';
-import UpdateBought from './components/ListItem/UpdateBought';
+//import UpdateBought from './components/ListItem/UpdateBought';
 
 
 
@@ -28,8 +28,11 @@ class App extends React.Component {
     token: null,
     user: null,
     displayNewList: false,
-    listTypeState:4,
-    listDisplay:"Exotic",
+    listType:4,
+    listDisplay:"Christmas",
+   //listName:"Xmas",
+    updateButtons: false,
+    initialize:"true"
     //newItem:true
   };  //end state
 
@@ -81,37 +84,97 @@ class App extends React.Component {
   };  //end AuthenticateUser    
 
   
-   loadData = () =>{
+   loadData = (listName) =>{
+
+    
+      let {initialize} = this.state;
+
       console.log("in loadData....");
+      
+      console.log("Value of initialize:",initialize);
+      
       const {token} = this.state;
+      if(initialize===true){
+        listName="Xmas";
+        this.setState({initialize:false});     
+       }
+
+      console.log("Value of listName:",listName); 
       
       if (token) {
     
       const config = {
         headers:{
+          'Content-Type': 'application/json',
           'x-auth-token': token
         }
       };
+     // const {listItem} = this.state;
+     
 
-  
-
-         axios.get('http://localhost:5000/api/lists', config)  
+  //console.log("Value of listItem in loadData", listItem);
+        // Get the user's desired list
+        if(listName==="Xmas"){
+         axios.get('http://localhost:5000/api/lists/xmas', config)  
         .then((response) =>{
           this.setState({list: response.data});
          
-           console.log("THees are the list values:",response.data);
-           let LD = this.convert(response.data[0].listType);
-           this.setState({listDisplay:LD});
+           console.log("THese are the list values:",response.data);
+           //let LD = this.convert(response.data[0].listType);
+           this.setState({listDisplay:"Christmas"});
+           this.displayNewList=false;
         })
         .catch((error) => {
           console.error('Error fetching data: ');
         });
-      
+      } else if (listName==="Groc"){
+         axios.get('http://localhost:5000/api/lists/groc', config)  
+        .then((response) =>{
+          this.setState({list: response.data});
+         
+           console.log("THese are the list values:",response.data);
+           //let LD = this.convert(response.data[0].listType);
+           this.setState({listDisplay:"Grocery"});
+           this.displayNewList=false;
+           //window.location.reload();
+        })
+        .catch((error) => {
+          console.error('Error fetching data: ');
+        });
+
+      } else{
+
+         axios.get('http://localhost:5000/api/lists/gen', config)  
+        .then((response) =>{
+          this.setState({list: response.data});
+         
+           console.log("THese are the list values:",response.data);
+           //let LD = this.convert(response.data[0].listType);
+           this.setState({listDisplay:"General"});
+           this.displayNewList=false;
+           
+           
+        })
+        .catch((error) => {
+          console.error('Error fetching data: ');
+        });
+      }
+      this.setState({updateButtons:true});
+    //this.history.pushState("/");
+
     }  // end if token
     
    };  // end loadData
 
-   
+   getList = listName =>{
+
+    
+      this.loadData(listName);
+    
+      
+    
+
+   }; //end getList
 
    viewPost = post => {
       console.log(`view ${post.title}`);
@@ -162,7 +225,7 @@ class App extends React.Component {
     this.setState({
       list:newList,
       listItem:listItem,
-      listTypeState:listType,
+      listType:listType,
       listDisplay:this.convert(newList[0].listType)    
 
     });
@@ -181,7 +244,7 @@ class App extends React.Component {
   handleUpdateBought = (list, listItem, displayNewList,listType) => {
         //let history= useHistory();
        //UpdateBought(bought);
-       console.log("initial VALUE OF BOUGHT IN HANDLEUPDATEBOUGHT", `${list.itemBought}`);
+      // console.log("initial VALUE OF BOUGHT IN HANDLEUPDATEBOUGHT", `${list.itemBought}`);
        //console.log("VALUE of STATE:",this.state);
         const {token}=this.state;
         //const bought=list.bought;
@@ -199,17 +262,17 @@ class App extends React.Component {
       
         this.displayNewList=true;
       
-        console.log("Toggled value of bought:",list.itemBought);
+        //console.log("Toggled value of bought:",list.itemBought);
     
     const updateBought  =  async() =>{
       const {token}=this.state;
     //if (token) {
-      console.log("VALUE of BOUGHT IN UPDATETOGGLEBOUGHT: ",list.itemBought);
+      //console.log("VALUE of BOUGHT IN UPDATETOGGLEBOUGHT: ",list.itemBought);
       const newBought = list.itemBought;
       const newListStatus = {
           listItem:list.listItem,
           itemBought:newBought, 
-          listType: list.listType
+         // listType: list.listType
 
       };
     try{
@@ -220,13 +283,13 @@ class App extends React.Component {
         }  
       }
       const body=JSON.stringify(newListStatus);
-      console.log("ABOUT TO CALL AXIOS PUT");
-      console.log("THis List.ID :", list._id);
-      console.log("token:",token);
-      console.log("body:" ,{body});
+      //console.log("ABOUT TO CALL AXIOS PUT");
+      //console.log("THis List.ID :", list._id);
+      //console.log("token:",token);
+      //console.log("body:" ,{body});
 
       const res = await axios.put(
-        `http://localhost:5000/api/lists/${list._id}`,body,config)
+        `http://localhost:5000/api/lists/bought/${list._id}`,body,config)
         .then(response => {
           console.log("GOT A RESPONSE");
           //const newList = this.state.list.filter(p =>p._id !== listItem._id);
@@ -262,24 +325,27 @@ convert=(listT)=>{
   if(listT===1){ 
         this.setState({listDisplay:"Grocery"});
         this.listDisplay="Grocery";
+        this.setState({listType:1});
   }
    else if (listT===2){
         //this.updateState({listType:"Christmas"});
         this.setState({listDisplay:"Christmas"});
-        
+        this.setState({listType:2});
         this.listDisplay="Christmas";
-        console.log("DID LisstDissplay get CHANGED??", this.listDisplay);
+        
    }
 
   else if (listT===3){
         //this.setState({listType:"CLothing"});
         this.setState({listDisplay:"CLothing"});
+        this.setState({listType:3});
         this.listDisplay="Clothing";
   }
 
   else{
         this.setState({listDisplay:"General"});
         this.listDisplay="General";
+        this.setState({listType:4});
   }
   return this.listDisplay;
 };
@@ -290,6 +356,8 @@ convert=(listT)=>{
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.setState({user:null, token:null});
+    this.setState({initialize:true});
+    this.setState({listName:"Xmas"});
    }; // end logOut
   
   
@@ -335,6 +403,17 @@ convert=(listT)=>{
           <Route exact path="/">
             {user ? (
               <React.Fragment>
+              <div id="homePage">
+              <div id="listLinks">
+              
+                    <React.Fragment>
+                    <button id="index" onClick={()=>this.getList("Xmas")}>Christmas List</button>
+                    <button id="index"onClick={()=>this.getList("Groc")} >Grocery</button>
+                    <button id="index"onClick={()=>this.getList("Gen")}>General List</button>
+                    </React.Fragment> 
+                
+              </div>
+              <div id="actualList">
               <div id="greeting"> {user}'s {listDisplay} List!</div>
               
                 {this.displayNewList===true? (
@@ -357,8 +436,8 @@ convert=(listT)=>{
                 listType={listType}
                 displayNewList={displayNewList}
                 />
-           
-               
+              </div>
+              </div> 
               </React.Fragment> 
             )  :  (
               <React.Fragment>

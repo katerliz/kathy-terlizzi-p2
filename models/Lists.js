@@ -11,7 +11,7 @@ const ListSchema = new mongoose.Schema({
     },
     listItem: {
         type: String,
-        required: true
+        //required: true
     },
     itemBought: {
         type:Boolean,

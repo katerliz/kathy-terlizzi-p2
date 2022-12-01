@@ -6,7 +6,7 @@
 }
 
 .listItemButtons{
-    margin:0 0 0 38%;
+    margin:3% 0 0 40%;
 }
 
 .form-container button {
@@ -20,11 +20,12 @@ h3{
 .listItemtype{}
 
 .listChoices{
-    margin:1% 0 1% 38%;
+    margin:1.3% 0 1% 40%;
+    background: lightgoldenrodyellow;
 }
 
 #listTypeDD{
     width:10em;
-    margin:0% 0 10% 35%
+    margin:1% 0 10% 35%
 }
 

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PostListItem from './PostListItem';
 
 const PostList = props =>{
-  console.log("VALUE OF PROPS IN POSTLIST: ",props);
+  console.log("IN POSTLIST:");
     //const {posts,list,listItem,clickPost, deletePost, deleteItem,editPost, editListItem,bought,newItem} = props;
     const {list,listItem,clickPost, deleteItem, handleUpdateBought, editListItem,boughtChanged,listType,newItem,displayNewList,getListType} = props;
     //let bought = this.state.bought;

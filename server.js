@@ -6,6 +6,7 @@ import bcrypt from 'bcryptjs';
 import User from './models/User';
 import Post from './models/Post';
 import Lists from './models/Lists';
+import Index from './models/Index';
 import jwt from 'jsonwebtoken';
 import config from 'config';
 import auth from './middleware/auth';
@@ -188,6 +189,44 @@ async (req, res) => {
     
     );
 
+     /**
+     * 
+     * @route Post api/index
+     * @desc Post an Index entry to db
+     */
+    app.post('/api/updateIndex',auth, async(req,res)=>{
+        //console.log("in api/index");
+        const errors= validationResult(req);
+            if(!errors.isEmpty()) {
+                console.log("ERror in validation of index pkt..");
+                res.status(400).json({errors:errors.array()});
+            }else {
+                const {itemNumber} = req.body;
+                console.log("About to try to add index...");
+                try{
+                    // Get the user who created the post
+                    const user = await User.findById(req.user.id);
+                    const indexEntry="list"+itemNumber+"TypeCreated";
+                    // Create a new post
+                    const index = new Index({
+                        user: user.id,
+                        list1TypeCreated:false,
+                        list2TypeCreated:true,
+                        list3TypeCreated:false,
+                        list4TypeCreated:false
+                    });
+
+                    // Save to the db and return
+                    await index.save();
+                    res.json(index);
+                }catch (error) {
+                    console.error(error);
+                    res.status(500).send('Server error');
+                }
+            }
+       }
+    );
+
        // Post endpoints
     /**
      * 
@@ -213,8 +252,13 @@ async (req, res) => {
                 //const {title,body} = req.body;
                 const listText = req.body.listItem;
                 const listT = req.body.listType;
+                console.log("LISTT IN SERVER:",listT );
+                //if (listT.length==0){
+                //    listT=0;
+                //}
+                console.log("List Type is: ",listT);
                 //console.log("REQUEST BODY  IS:" ,req.body);
-               // console.log("REQUEST LISTITEM IS: ",req.body.listItem);
+               //console.log("REQUEST LISTITEM IS: ",req.body.listItem);
                 try{
                     // Get the user who created the list item
                     const user = await User.findById(req.user.id);
@@ -229,13 +273,6 @@ async (req, res) => {
                         date:Date()
 
 
-                    // Create a new list Item
-                    /*const item = new Lists({
-                        user: user.id,
-                        listType:2,
-                        listItem:body,
-                        itemBought:false,
-                        date:Date()*/
                     });
                     
                     // Save to the db and return
@@ -253,19 +290,20 @@ async (req, res) => {
 
     /**
      * 
-     * @route GET api/posts 
-     * @desc Get posts 
+     * @route GET api/index 
+     * @desc Get the user's index of lists 
      */
 
-    /*app.get('/api/posts',auth, async(req,res)=>{
+    app.get('/api/index',auth, async(req,res)=>{
         try{
-            const posts = await Post.find().sort({date:-1});
-            res.json(posts);
+            const user = await User.findById(req.user.id);
+            const index = await Index.find(user);
+            res.json(index);
         } catch(error) {
             console.error(error);
             res.status(500).send('Server error');
         }
-    });*/
+    });
 
     /**
      * 
@@ -273,20 +311,87 @@ async (req, res) => {
      * @desc Get list items 
      */
 
-    app.get('/api/lists',auth, async(req,res)=>{
+    app.get('/api/lists/xmas',auth, async(req,res)=>{
+        const errors= validationResult(req);
+        if(!errors.isEmpty()) {
+                console.log("Error validating list Item request.")
+                res.status(400).json({errors:errors.array()});
+         }
         try{
              // Get the user who created the list item
             const user = await User.findById(req.user.id);
             console.log("in Try block for db search.");
             console.log("This user is:",user);
+            //console.log("This list type is",listType);
             //const list = await Post.find(any).sort({date:-1});
             //const list = await Lists.find();
             const list = await Lists.find({
-                user:user
+                user:user,
+               // listItem:"llllll",
+               listType:2
             });
            
             res.json(list);
            console.log("SERVER Found documents in DB: ");
+           console.log("List of items found:", list);
+        } catch(error) {
+            console.error(error);
+            res.status(500).send('Server error');
+        }
+    });
+
+        app.get('/api/lists/groc',auth, async(req,res)=>{
+        const errors= validationResult(req);
+        if(!errors.isEmpty()) {
+                console.log("Error validating list Item request.")
+                res.status(400).json({errors:errors.array()});
+         }
+        try{
+             // Get the user who created the list item
+            const user = await User.findById(req.user.id);
+            console.log("in Try block for db search.");
+            console.log("This user is:",user);
+            //console.log("This list type is",listType);
+            //const list = await Post.find(any).sort({date:-1});
+            //const list = await Lists.find();
+            const list = await Lists.find({
+                user:user,
+               // listItem:"llllll",
+               listType:1
+            });
+           
+            res.json(list);
+           console.log("SERVER Found documents in DB: ");
+           console.log("List of items found:", list);
+        } catch(error) {
+            console.error(error);
+            res.status(500).send('Server error');
+        }
+    });
+
+          app.get('/api/lists/gen',auth, async(req,res)=>{
+        const errors= validationResult(req);
+        if(!errors.isEmpty()) {
+                console.log("Error validating list Item request.")
+                res.status(400).json({errors:errors.array()});
+         }
+        try{
+             // Get the user who created the list item
+            const user = await User.findById(req.user.id);
+            console.log("in Try block for db search.");
+            console.log("This user is:",user);
+            //console.log("This list type is",listType);
+            //const list = await Post.find(any).sort({date:-1});
+            //const list = await Lists.find();
+            const list = await Lists.find({
+                user:user,
+               // listItem:"llllll",
+               listType:4
+            });
+           
+            res.json(list);
+           console.log("SERVER Found documents in DB: ");
+           console.log("List of items found:", list);
         } catch(error) {
             console.error(error);
             res.status(500).send('Server error');
@@ -382,7 +487,7 @@ async (req, res) => {
      * @desc update a list 
      */
 
-    app.put('/api/lists/:id',auth, async (req,res) => {
+    app.put('/api/lists/bought/:id',auth, async (req,res) => {
         console.log("In app.put....");
         try{
             
@@ -403,14 +508,14 @@ async (req, res) => {
             //UPdate the items bought status and return
             //const listItem = await Lists.findById()
             console.log("value of body/itemBought in put: ",itemBought);
-            console.log("Value of itemType in put:",listType);
+            //console.log("Value of itemType in put:",listType);
             //item.itemBought=newBought;
             
             await Lists.updateOne(
                 {_id: item},
                     {$set:{
-                        "listType":listType,
-                        "itemBought":itemBought,
+                       // "listType":listType,
+                        "itemBought":itemBought
                         }});
             
             

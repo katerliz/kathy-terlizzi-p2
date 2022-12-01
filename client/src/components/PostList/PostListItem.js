@@ -4,12 +4,12 @@ import slugify from 'slugify';
 import './styles.css';
 
 const PostListItem = props =>{
-    console.log("VALUE OF PROPS IN POSTLISTITEM: ",props);
+    console.log("IN POSTLISTITEM: ");
     const { list,listItem, clickPost,deleteItem,handleUpdateBought,boughtChanged,listType,newItem,displayNewList} = props;
 
     const history = useHistory();
   
-    console.log("Value of bought at start of ListItem:",list.itemBought);
+    //console.log("Value of bought at start of ListItem:",list.itemBought);
     
 
     const handleClickPost = post =>{
@@ -22,7 +22,7 @@ const PostListItem = props =>{
 
 
 
-console.log("Value of bought before IF statemetn in ListItem:" ,list.itemBought);
+//console.log("Value of bought before IF statemetn in ListItem:" ,list.itemBought);
 //console.log("value of displayNEWLIST before IF statement", displayNewList);
 //if(boughtChanged===true){
  if (list.itemBought===false){

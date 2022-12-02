@@ -242,12 +242,11 @@ class App extends React.Component {
   };   //end onListItemCreated
 
   handleUpdateBought = (list, listItem, displayNewList,listType) => {
-        //let history= useHistory();
-       //UpdateBought(bought);
+      
       // console.log("initial VALUE OF BOUGHT IN HANDLEUPDATEBOUGHT", `${list.itemBought}`);
        //console.log("VALUE of STATE:",this.state);
         const {token}=this.state;
-        //const bought=list.bought;
+       
       
         console.log("HANDLEUPDATE BOUGHT CALLED FOR ITEM",`${list.listItem}` );
         
@@ -318,10 +317,8 @@ class App extends React.Component {
 };
 
 convert=(listT)=>{
-  console.log("IN CONVERT....)");
-  //let listType2=list[list.length-1].listType;
-  //let listDisplay="General";
-  //listT=this.list[this.list.length-1].listType;
+  //npconsole.log("IN CONVERT....)");
+
   if(listT===1){ 
         this.setState({listDisplay:"Grocery"});
         this.listDisplay="Grocery";

@@ -258,7 +258,7 @@ async (req, res) => {
                 //}
                 console.log("List Type is: ",listT);
                 //console.log("REQUEST BODY  IS:" ,req.body);
-               //console.log("REQUEST LISTITEM IS: ",req.body.listItem);
+               console.log("REQUEST LISTITEM IS: ",req.body.listItem);
                 try{
                     // Get the user who created the list item
                     const user = await User.findById(req.user.id);

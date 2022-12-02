@@ -13,7 +13,9 @@ body{
 
   Margin: auto;
   text-align: center;
-  background-color:burlywood; 
+ /* background-color:burlywood;*/
+  background-image: url("../public/whitePaper.png");
+  z-index: ;
 
 }
 
@@ -32,7 +34,7 @@ body{
 }
 
 .App-header {
-  background-color: blue;
+  //background-color:grey;
   min-height: 10vh;
   display: flex;
   flex-direction: row;
@@ -63,7 +65,7 @@ body{
   display:block;
 
   font-size: calc(5px +2vmin);
-  color:aquamarine;
+  color:blue;
   text-decoration: none;
 }
 
@@ -73,6 +75,7 @@ body{
 
 main{
   margin: 5px auto;
+ 
   /*display:flex;
   /*flex-direction: row;
   align-items:center;*/
@@ -82,7 +85,6 @@ main{
   display:flex;
   /*flex-direction: row;
   margin: 0 20px 0px;*/
-  
 
 }
 
@@ -104,6 +106,7 @@ main{
   border-right:3px solid slategray;*/
   padding-left:0;
   align-self:flex-start;
+  
  
 }
 
@@ -133,6 +136,7 @@ main{
   font-weight: 500;
   margin-left: 30%;
   text-align:left;
+  text-shadow:3px 1px lightgray ;
   
 }
 

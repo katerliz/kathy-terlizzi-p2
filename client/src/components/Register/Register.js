@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import {useHistory} from 'react-router-dom';
+import './styles.css';
 
 const Register = ({authenticateUser}) => {
     let history = useHistory();
@@ -60,7 +61,7 @@ const Register = ({authenticateUser}) => {
         }
     }
     return (
-        <div>
+        <div class="registerPg">
             <h2>Register</h2>
             <div>
                 <input

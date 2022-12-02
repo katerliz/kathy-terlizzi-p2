@@ -220,14 +220,15 @@ const onChange = (e) =>{
     <div className="form-container">
 
         <h2>Create New List Item</h2>
-        <textarea className="inputItem"
+        <div class="InputItem">
+        <textarea class="InputItem"
             name="listItem"
             cols="30"
             rows="2"
             value={listItem}
             onChange={e => onChange(e)}
         ></textarea>
-
+        </div>
         <h3>Select Your List Type</h3>
         
         <button onClick={()=>getListType(1)} className="listChoices">Grocery List</button>

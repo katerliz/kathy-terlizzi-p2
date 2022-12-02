@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import { useHistory} from 'react-router-dom';
+import './styles.css';
 
 const Login = ({ authenticateUser}) => {
         let history = useHistory();
@@ -53,10 +54,10 @@ const Login = ({ authenticateUser}) => {
          authenticateUser();
         }  
          return(
-                <div>
-                  <h2>Log In</h2>
+                <div class="loginPg">
+                  <h2 class="loginPg">Log In</h2>
                   <div>
-                    <input
+                    <input class="loginPg"
                       type="text"
                       placeholder="Email"
                       name="email"
@@ -64,7 +65,7 @@ const Login = ({ authenticateUser}) => {
                       onChange={e => onChange(e)} />
                   </div>
                   <div>
-                    <input
+                    <input class="loginPg"
                       type="text"
                       placeholder="Password"
                       name="password"
@@ -72,7 +73,7 @@ const Login = ({ authenticateUser}) => {
                       onChange={e=>onChange(e)} />
                   </div>
                   <div>
-                    <button onClick={() =>loginUser()}>Log In</button> 
+                    <button class="loginPg" onClick={() =>loginUser()}>Log In</button> 
                   </div>
                   <div>
                    {errors && errors.map(error =>

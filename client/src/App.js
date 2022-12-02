@@ -441,8 +441,11 @@ convert=(listT)=>{
               </React.Fragment> 
             )  :  (
               <React.Fragment>
+              <div id="initMsg">
                Please Register or Login.
+               </div>
               </React.Fragment>
+              
             )} 
           </Route>
           

@@ -12,19 +12,27 @@
 body{
 
   Margin: auto;
-  text-align: center;
+ /* text-align: center;*/
+ text-align:left;
  /* background-color:burlywood;*/
-  background-image: url("../public/whitePaper.png");
+  background-image: url("../public/whitePaper3.png");
+  background-repeat: no-repeat;
 
 
+}
+
+#initMsg{
+  Margin-left:20%;
 }
 
 #title{
   font-size: 3em;
   font-family: Arial, Helvetica, sans-serif;
   color:yellow;
-  background-color:cornflowerblue;
+  /*background-color:cornflowerblue;*/
+  background-color:rgb(14, 176, 157);
   margin-right:10%;
+  text-align:left;
   padding:1em 2.5em;
   border-radius:15px;
   box-shadow:3px 3px 5px 5px yellow;
@@ -39,7 +47,7 @@ body{
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   font-size: calc(5px + 2vmin);
   padding-left: 30px;
 
@@ -50,9 +58,13 @@ body{
   display:flex;
   flex-direction:column ;
   /*flex:1;*/
-  text-align: right;
-  padding-right: 10%;
-  
+  justify-content:flex-end;
+  padding-right: 0%;
+  /*background-color: lightblue;*/
+  margin-right:5%;
+  margin-left:15%;
+  border-radius:10px 10px;
+  text-shadow:2px .5px lightgrey;
 }
 
 .App-header ul li{
@@ -63,7 +75,7 @@ body{
 
 .App-header ul li a {
   display:block;
-
+  font-weight:600;
   font-size: calc(5px +2vmin);
   color:blue;
   text-decoration: none;
@@ -101,11 +113,12 @@ main{
   flex-wrap: nowrap;
   margin-top:.5em;
   margin-left:0;
-  margin-right:10%;
+  margin-right:40%;
   /*border-left:3px solid slategray;
   border-right:3px solid slategray;*/
   padding-left:0;
-  align-self:flex-start;
+  /*align-self:flex-start;*/
+  text-shadow: 1px .5px grey;
   
  
 }
@@ -114,7 +127,7 @@ main{
 #index{
   font-style: italic;
   /*justify-content:right;*/
-  margin-left:0%;
+  margin-left:5%;
   margin-right:15%;
   margin-top:10%;
   padding-left:.5em;
@@ -134,7 +147,7 @@ main{
   font-size: 1.5em;
   color:rgb(9, 9, 157);
   font-weight: 500;
-  margin-left: 30%;
+  margin-left: 10%;
   text-align:left;
   text-shadow:3px 1px lightgray ;
   

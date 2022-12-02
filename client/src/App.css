@@ -15,7 +15,7 @@ body{
   text-align: center;
  /* background-color:burlywood;*/
   background-image: url("../public/whitePaper.png");
-  z-index: ;
+
 
 }
 
@@ -34,7 +34,7 @@ body{
 }
 
 .App-header {
-  //background-color:grey;
+  /*background-color:grey;*/
   min-height: 10vh;
   display: flex;
   flex-direction: row;
